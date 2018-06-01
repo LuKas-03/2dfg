@@ -19,7 +19,22 @@ public class RequirementToSkill : MonoBehaviour, IRequirement
 
     public bool IsComplete()
     {
-        var actualValue = PlayerPrefs.GetInt(skill.ToString());
+        var actualValue = 0;
+        switch (skill)
+        {
+            case SkillItem.Hels:
+                actualValue = FindObjectOfType<SystemPumping>().health;
+                break;
+            case SkillItem.Intel:
+                actualValue = FindObjectOfType<SystemPumping>().intelligence;
+                break;
+            case SkillItem.Mana:
+                actualValue = FindObjectOfType<SystemPumping>().mana;
+                break;
+            case SkillItem.Streng:
+                actualValue = FindObjectOfType<SystemPumping>().strength;
+                break;
+        }
         return actualValue >= value;
     }
 

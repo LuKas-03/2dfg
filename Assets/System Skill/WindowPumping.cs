@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OknoSkills : MonoBehaviour {
+public class WindowPumping : MonoBehaviour {
 
     public Animator animator;
 
-    public void StartSkills()
+    public void ShowWindow()
     {
         animator.SetBool("IsDialogOpen", true);     
     }
 
-    public void EndSkills()
+    public void ConcealWindow()
     {
        animator.SetBool("IsDialogOpen", false);
        CharacterAnimationController.anim.SetBool("StopMovement", false);

@@ -39,7 +39,7 @@ public class CharacterAnimationController : MonoBehaviour {
     private void Start()
     {
         anim = GetComponent<Animator>();
-        health = FindObjectOfType<UpdateSystem>().FunctionHels();
+        health = FindObjectOfType<SystemPumping>().FunctionHels();
     }
 
     /// Update (обновления состояний: ходьба, прыжок, атака)
@@ -63,7 +63,7 @@ public class CharacterAnimationController : MonoBehaviour {
                     }
                     if (Input.GetKeyDown(KeyCode.K))
                     {
-                        FindObjectOfType<OknoSkills>().StartSkills();
+                        FindObjectOfType<WindowPumping>().ShowWindow();
                         anim.SetBool("StopMovement", true);
                     }
                 }
@@ -124,7 +124,7 @@ public class CharacterAnimationController : MonoBehaviour {
     /// получение урона
     public IEnumerator Damage()
     {
-        health -= FindObjectOfType<UpdateSystem>().FunctionDamege();
+        health -= FindObjectOfType<SystemPumping>().Damege();
         if (!isDead)
         {
             anim.SetTrigger("Hit");

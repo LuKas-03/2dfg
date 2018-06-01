@@ -170,7 +170,7 @@ public class Enemy : MonoBehaviour {
     /// получение урона
     public IEnumerator Damage()
     {
-        health -= FindObjectOfType<UpdateSystem>().FunctionldamageFiz();
+        health -= FindObjectOfType<SystemPumping>().DamagePhysical();
         if (!isDead)
         {
             Enemy.anim.SetTrigger("Hit");
@@ -180,7 +180,7 @@ public class Enemy : MonoBehaviour {
             Enemy.anim.SetTrigger("Death");           
             if (count == 1)
             {
-                FindObjectOfType<UpdateSystem>().FunctionPoint(50f);
+                FindObjectOfType<SystemPumping>().FunctionPoint(50f);
             }
             count = 0;
         }

@@ -12,6 +12,7 @@ public class QuestPoint : MonoBehaviour
     [SerializeField] private QuestActivators.Activators activator;
     [Header("Сообщение уведомления при выполнении")]
     [SerializeField] private string notification = null;
+    private IRequirement[] requirements;
 
     [Header("Текст задания в уведомлении (не обязателен)")]
     public string TaskNotification = "";
@@ -19,6 +20,11 @@ public class QuestPoint : MonoBehaviour
     void OnEnable()
     {
         IsComplete = false;
+    }
+
+    private void Start()
+    {
+        requirements = GetComponents<IRequirement>();
     }
 
     private void OnTriggerStay2D(Collider2D player)
@@ -60,7 +66,7 @@ public class QuestPoint : MonoBehaviour
 
     private bool CheckRequirements()
     {
-        var requirements = GetComponents<IRequirement>();
+        //requirements = GetComponents<IRequirement>();
         foreach (var i in requirements)
             {
                 if (!i.IsComplete())

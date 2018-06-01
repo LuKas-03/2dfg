@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour
     /// <summary>
     /// Содержимое инвентаря, рассортировано по типам.
     /// </summary>
-    private Dictionary<ItemType, Item> items;
+   public Dictionary<ItemType, Item> items;
 
     /// <summary>
     /// Интерфейсный элемент инвентаря.
@@ -27,6 +27,19 @@ public class Inventory : MonoBehaviour
     /// Интерфейсные элементы - слоты инвентаря.
     /// </summary>
     private InventorySlot[] slots;
+
+    public void Save()
+    {
+        SaveLoadManager.SaveInventory(this);
+    }
+
+    public void Load()
+    {
+        Dictionary<ItemType, Item> loadedStats = SaveLoadManager.LoadInventory();
+
+        items = loadedStats;
+
+    }
 
     /// <summary>
     /// Поместить предмет в инвентарь. Если предмет такого типа уже есть, в инвентаре остается более полезный.
