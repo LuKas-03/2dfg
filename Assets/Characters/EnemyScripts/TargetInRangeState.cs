@@ -6,18 +6,20 @@ public class TargetInRangeState : IEnemyStates {
 
     private Enemy enemy;
 
-    // переменные для дальней атаки врага (лук, ножи для метания и т.д.)
+    /// переменные для дальней атаки врага (лук, ножи для метания и т.д.)
     private float throwRangeAttackTimer;
     private float throwRangeAttackCoolDown=2f;
     private bool  canShot=true;
 
-    // точка входа в состояние
+    /// точка входа в состояние
     public void Enter(Enemy enemy)
     {
         this.enemy = enemy;
     }
 
-    // Update (обновляет состояния)
+    /// Update (обновляет состояния в зависимости 
+    /// от дистанции между врагом и игровым персонжем,
+    /// а также наличием цели)
     public void Execute()
     {
         ThrowRangeAttack();
@@ -35,19 +37,15 @@ public class TargetInRangeState : IEnemyStates {
         }
     }
 
-    // точка выхода из состояния
-    public void Exit()
-    {
+    /// точка выхода из состояния
+    public void Exit()   { }
 
-    } 
+    /// проверка на пересечения коллизий
+    public void OnTriggerEnter(Collider2D other) { }
 
-
-    public void OnTriggerEnter(Collider2D other)
-    {
-
-    }
-
-    // дальняя атака (лук, ножи для метания и т.д.)
+    /// дальняя атака (лук, ножи для метания и т.д.)
+    /// для того, чтобы враг не атаковал игрока без остановки,
+    /// используется таймер, задерживающий следующую атаку
     private void ThrowRangeAttack()
     {
         throwRangeAttackTimer += Time.deltaTime;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// переменные, хранящие имя говорящего и его фразы
+/// переменные, хранящие имя говорящего и его фразы
 [System.Serializable]
 public class Dialogs {
 

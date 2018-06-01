@@ -5,17 +5,18 @@ using UnityEngine;
 public class IdleState : IEnemyStates {
 
     private Enemy enemy;
-
+    
+    /// переменные таймера для остановки между патрулями
     private float idleTimer;
     private float idleDuration=5f;
 
-    // точка входа в состояние
+    /// точка входа в состояние
     public void Enter(Enemy enemy)
     {
         this.enemy = enemy;
     }
 
-    // Update (обновляет состояния)
+    /// Update (обновляет состояния в зависимости от наличия цели)
     public void Execute()
     {
         Idle();
@@ -25,14 +26,14 @@ public class IdleState : IEnemyStates {
         }
     }
 
-    // точка выхода из состояния
-    public void Exit() { } 
+    /// точка выхода из состояния
+    public void Exit() { }
 
-
+    /// проверка на пересечения коллизий
     public void OnTriggerEnter(Collider2D other) { }
 
-    // переход от остановки к патрулированию спустя фиксированное время 
-    // (по желанию можно сделать рандом в небольших пределах)
+    /// переход от остановки к патрулированию спустя фиксированное время 
+    /// (по желанию можно сделать рандом в небольших пределах)
     private void Idle()
     {
         Enemy.anim.SetFloat("Speed", 0);

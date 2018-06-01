@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ShopCategorySlot : MonoBehaviour {
-
+/// <summary>
+/// Слот категории товаров в магазине
+/// </summary>
+public class ShopCategorySlot : MonoBehaviour
+{
+    /// <summary>
+    /// Тип предмета. Все предметы этого типа образуют категорию товаров.
+    /// </summary>
     public ItemType itemType;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

@@ -12,8 +12,6 @@ public class StartQuestPoint : MonoBehaviour {
     [Header("Условие активации")]
     public QuestActivators.Activators QuestActivator;
 
-    private bool isDialogOpen = false;
-
     void OnTriggerStay2D(Collider2D other)    {
         if ((other.CompareTag("Character")) && QuestActivators.Check(QuestActivator))
         {
@@ -22,8 +20,6 @@ public class StartQuestPoint : MonoBehaviour {
             {
                 return;
             }
-
-            isDialogOpen = true;
             // если квест ещё не выполнен
             if (PlayerQuests.CurrentQests.ContainsKey(Quest.Name))
             {

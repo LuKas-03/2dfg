@@ -7,7 +7,7 @@ public class QuestPoint : MonoBehaviour
 {
     public bool IsComplete { get; private set; }
     public QuestInfo Quest { get; set; }
-    public string QuestName;
+    public string QuestName; // необходим для нахлждения QuestManager'ом (необязателен для дочерних точек)
 
     [SerializeField] private QuestActivators.Activators activator;
     [Header("Сообщение уведомления при выполнении")]
@@ -45,7 +45,7 @@ public class QuestPoint : MonoBehaviour
             var item = GetComponent<Item>();
             if (item != null)
             {
-                item.Picable = true;
+                item.pickable = true;
             }
             IsComplete = true;
 

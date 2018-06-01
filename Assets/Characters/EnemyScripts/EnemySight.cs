@@ -7,21 +7,17 @@ public class EnemySight : MonoBehaviour {
     [SerializeField]
     private Enemy enemy;
 
+    /// переменные для рисования луча и сообщения о нахождении цели
     public Transform sightStart, sightEnd;
     public bool spotted = false;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
+	/// рисование луча и реагирование ИИ
 	void Update () {
         Raycasting();
         Behaviours();
     }
 
-    // рисование луча и определение цели с помощью слоя, на котором она должна быть
+    /// рисование луча и определение цели с помощью слоя, на котором она должна быть
     void Raycasting()
     {
         Debug.DrawLine(sightStart.position, sightEnd.position, Color.green);
@@ -29,19 +25,18 @@ public class EnemySight : MonoBehaviour {
 
     }
 
-    // поведение ИИ
+    /// поведение ИИ
     void Behaviours()
     {
-        // нахождение цели, если она в зоне видимости
+        /// нахождение цели, если она в зоне видимости
         if (spotted)
         {
             enemy.Target = FindObjectOfType<CharacterAnimationController>().gameObject;
         }
-        // потеря цели из виду
+        /// потеря цели из виду
         else
         {
             enemy.Target = null;
         }
-
     }
 }

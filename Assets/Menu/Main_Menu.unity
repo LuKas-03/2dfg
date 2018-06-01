@@ -297,6 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 774768854}
   - component: {fileID: 774768853}
+  - component: {fileID: 774768855}
   m_Layer: 0
   m_Name: UI_Manager
   m_TagString: Untagged
@@ -315,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df22c7655552b1f4094ca4a225912b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scene: 
 --- !u!4 &774768854
 Transform:
   m_ObjectHideFlags: 0
@@ -328,6 +330,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &774768855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 774768852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3e16938397d004aad6cc973bf8f698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1133580828
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,8 +486,9 @@ GameObject:
   - component: {fileID: 1469217690}
   - component: {fileID: 1469217689}
   - component: {fileID: 1469217688}
+  - component: {fileID: 1469217691}
   m_Layer: 5
-  m_Name: Load
+  m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,7 +509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 0, y: -29}
   m_SizeDelta: {x: 320, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1469217688
@@ -537,7 +551,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 774768853}
+      - m_Target: {fileID: 774768855}
         m_MethodName: Load
         m_Mode: 1
         m_Arguments:
@@ -583,6 +597,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1469217686}
+--- !u!114 &1469217691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1469217686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3e16938397d004aad6cc973bf8f698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1613577991
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,7 +762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 32}
   m_SizeDelta: {x: 320, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1751517575
@@ -858,6 +883,7 @@ MonoBehaviour:
   musicSource: {fileID: 1783830903}
   lowPitchRange: 0.95
   highPitchRange: 1.05
+  switcher: 0
 --- !u!82 &1783830903
 AudioSource:
   m_ObjectHideFlags: 0

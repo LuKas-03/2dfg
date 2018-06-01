@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SwitchScene : MonoBehaviour {
     [SerializeField] private string nextLevel;
 
+    /// смена сцены
     void OnTriggerEnter2D(Collider2D other)    {
         if (other.CompareTag("Character"))
         {

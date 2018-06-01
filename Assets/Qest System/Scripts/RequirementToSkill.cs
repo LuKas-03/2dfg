@@ -19,7 +19,6 @@ public class RequirementToSkill : MonoBehaviour, IRequirement
 
     public bool IsComplete()
     {
-        var skills = FindObjectOfType<UpdateSystem>();
         var actualValue = PlayerPrefs.GetInt(skill.ToString());
         return actualValue >= value;
     }

@@ -1,18 +1,33 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// Магазин
+/// </summary>
 public class Shop : MonoBehaviour
 {
+    /// <summary>
+    /// Категория товаров и текущий товар в ней. 
+    /// Хранит все товары магазина, принадлежащие к одному типу (например, все шлемы).
+    /// Возможно "пролистывать" товары в категории, т.е. последовательно менять текущий товар.
+    /// </summary>
     class Category
     {
+        /// <summary>
+        /// Товары в категории
+        /// </summary>
         List<Item> items;
+
+        /// <summary>
+        /// Индекс текущего товара
+        /// </summary>
         int current = -1;
 
+        /// <summary>
+        /// Текущий товар. Равен <code>null</code> если в категории нет товаров.
+        /// </summary>
         public Item CurrentItem
         {
             get
@@ -21,6 +36,10 @@ public class Shop : MonoBehaviour
             }
         }
 
+        /// <summary>
+        /// Перелистнуть товар, т.е. сделать текущим следующий товар категории.
+        /// Перелистывание закольцовано, т.е. после последнего товара будет выбран первый.
+        /// </summary>
         public void Next()
         {
             current++;
@@ -34,9 +53,14 @@ public class Shop : MonoBehaviour
             }
         }
 
-        public void Remove(Item i)
+        /// <summary>
+        /// Удалить заданный товар из категории.
+        /// Если товар был выбран, выбранным станет следующий товар.
+        /// </summary>
+        /// <param name="item">Заданный товар.</param>
+        public void Remove(Item item)
         {
-            var succsess = items.Remove(i);
+            var succsess = items.Remove(item);
             if (succsess)
             {
                 current--;
@@ -44,7 +68,10 @@ public class Shop : MonoBehaviour
             }
         }
 
-
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="items">товары для помещения в категорию. Ответственность за их принадлежность к одному типу лежит на вызывающем коде.</param>
         public Category(params Item[] items)
         {
             this.items = new List<Item>(items);
@@ -52,19 +79,45 @@ public class Shop : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Товары, распределенные по категориям
+    /// </summary>
     Dictionary<ItemType, Category> categories;
+
+    /// <summary>
+    /// Покупатель - это инвентарь, в который складывать покупки
+    /// </summary>
     Inventory customer;
+
+    /// <summary>
+    /// Выбранный товар. В случае покупки будет куплен именно он
+    /// </summary>
     Item selected;
+
+    /// <summary>
+    /// Интерфейсный элемент - панель, на которой отображается выбранный товар
+    /// </summary>
     GameObject itemPanel;
 
+    /// <summary>
+    /// Интерфейсный элемент - панель, на которой отображается магазин
+    /// </summary>
     public GameObject shopPanel;
+
+    /// <summary>
+    /// Герой, пришедший в магазин. Именно в его инвентарь будут сложены покупки.
+    /// </summary>
     public GameObject hero;
 
-    //шаблон объеката. Нужен для порождения игровых предметов в магазине.
-    //Unity запрещает порождать игровые объекты при помощи new
+    /// <summary>
+    /// Шаблон объекта. Нужен для порождения игровых предметов в магазине.
+    /// Unity запрещает порождать игровые объекты при помощи <code>new</code>
+    /// </summary>
     public Item itemTemplate;
 
-    // Use this for initialization
+    /// <summary>
+    /// Инициализация магазина
+    /// </summary>
     void Start()
     {
         //shopPanel = this.gameObject;
@@ -121,7 +174,16 @@ public class Shop : MonoBehaviour
         categories.Add(ItemType.QuestItem, quests);
     }
 
-
+    /// <summary>
+    /// Вспомогательный метод для более удобного порождения нового предмета
+    /// </summary>
+    /// <param name="type">тип порождаемого предмета</param>
+    /// <param name="name">название предмета</param>
+    /// <param name="price">цена предмета</param>
+    /// <param name="protection">Защита, используется если предмет по типу - доспех. Значение по умолчанию - ноль.</param>
+    /// <param name="attack">Атака, используется если предмет по типу - оружие. Значение по умолчанию - ноль.</param>
+    /// <param name="image">рисунок, изображающий предмет. По умолчанию - <code>null</code></param>
+    /// <returns>Новый предмет</returns>
     Item NewItem(ItemType type, string name, int price, int protection = 0, int attack = 0, Sprite image = null)
     {
         var good1 = Instantiate(itemTemplate);
@@ -134,6 +196,9 @@ public class Shop : MonoBehaviour
         return good1;
     }
 
+    /// <summary>
+    /// Купить текущий предмет в магазине и уложить его в инвентарь покупателя. Обновить визуальное состояние магазина
+    /// </summary>
     public void Buy()
     {
         Buy(selected);
@@ -141,6 +206,10 @@ public class Shop : MonoBehaviour
         UpdateSelected();
     }
 
+    /// <summary>
+    /// "Промотать" предмет, т.е. выбрать следующий предмет в заданной категории. Обновляет визуальное состояние магазина.
+    /// </summary>
+    /// <param name="t">категория товаров в магазине. Строка, должна содержать имя типа предмета, например "OneHandedWeapon"</param>
     public void Next(string t)
     {
         var key = (ItemType)Enum.Parse(typeof(ItemType), t);
@@ -149,11 +218,19 @@ public class Shop : MonoBehaviour
         UpdateSelected();
     }
 
+    /// <summary>
+    /// Удалить предмет из магазина.
+    /// </summary>
+    /// <param name="item">предмет, который надо удалить.</param>
     void DeleteItem(Item item)
     {
         categories[item.type].Remove(item);
     }
 
+    /// <summary>
+    /// Купить предмет в магазине и положить его в инвентарь покупателя.
+    /// </summary>
+    /// <param name="item">покупаемый предмет.</param>
     void Buy(Item item)
     {
         if (item != null && customer != null && customer.money >= item.price)
@@ -165,6 +242,11 @@ public class Shop : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Заисать текст в указанный элемент пользовательского интерфейса.
+    /// </summary>
+    /// <param name="uiElement">имя элемента</param>
+    /// <param name="value">текст, который нужно поместить.</param>
     void SetInterfaceName(string uiElement, string value)
     {
         var x = itemPanel.transform.Find(uiElement).GetChild(0);
@@ -172,6 +254,9 @@ public class Shop : MonoBehaviour
         y.text = value;
     }
 
+    /// <summary>
+    /// Обновить интерфейсный текст в соответствии с текущим состоянием денег у покупателя.
+    /// </summary>
     void UpdateMoney()
     {
         if (customer != null)
@@ -181,6 +266,9 @@ public class Shop : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Обновить интерфейсные элементы в соответствии с характеристиками выбранного товара.
+    /// </summary>
     void UpdateSelected()
     {
         SetInterfaceName("Info", selected != null ? selected.name : "");
@@ -194,32 +282,50 @@ public class Shop : MonoBehaviour
         y.gameObject.SetActive(selected != null);
     }
 
+    /// <summary>
+    /// Обработчик нажатия мыши. С его помощью переключаем категории, по которым щелкнул пользователь.
+    /// При этом выбирается в качестве текущего товара текущий предмет в категории.
+    /// </summary>
+    /// <param name="name">имя категории, должно совпадать с одним из типов предметов, например, "OneHandedWeapon"</param>
     public void OnPointerClick(string name)
     {
         ItemType t = (ItemType)Enum.Parse(typeof(ItemType), name);
         selected = categories[t].CurrentItem;
         UpdateSelected();
-
     }
 
+    /// <summary>
+    /// Интерфейсное действие - закрыть интерфейс магазина
+    /// </summary>
     public void CloseShop()
     {
         shopPanel.SetActive(false);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Обработчик кадра. Обрабатываем ввод пользователя, если нужно - включаем интерфейс магазина.
+    /// </summary>
     void Update()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        int x = Physics2D.GetContacts(gameObject.GetComponent<Collider2D>(), new Collider2D[] { player.GetComponent<Collider2D>() });
+        int x = Physics2D.GetContacts(
+            gameObject.GetComponent<Collider2D>(),
+            new Collider2D[] { player.GetComponent<Collider2D>() });
 
         if (Input.GetKeyUp(KeyCode.E) && x > 0)
-            switchVisible();
+        {
+            SwitchVisible();
+        }
     }
 
-    private void switchVisible()
+    /// <summary>
+    /// Включаем (т.е. разрешаем отрисовку) интерфейс магазина.
+    /// </summary>
+    private void SwitchVisible()
     {
         if (!shopPanel.activeSelf)
+        {
             shopPanel.SetActive(true);
+        }
     }
 }

@@ -6281,10 +6281,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Maxhealth: 100
-  physicaldamage: 0
+  physicaldamage: 20
   magicdamage: 0
   damageonPlayer: 0
-  damageonPlayer2: 0
+  damageonPlayer2: 20
   protection: 0
   experience: 0
   scaleexp: 0

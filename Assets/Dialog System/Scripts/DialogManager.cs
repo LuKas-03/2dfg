@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour {
 
+    /// переменные для отображения текста на экране 
     public Text nameText_Box;
     public Text dialogText_Box;
 
@@ -12,12 +13,12 @@ public class DialogManager : MonoBehaviour {
 
     private Queue<Dialogs> dialogs;
 
-    // инициализация очереди из диалоговых фраз
+    /// инициализация очереди из диалоговых фраз
     void Start () {
         dialogs = new Queue<Dialogs>();
     }
 
-    // начать диалог
+    /// начало диалога
     public void StartDialog(Dialogs[] dialog)
     {
         animator.SetBool("IsDialogOpen", true);
@@ -29,7 +30,7 @@ public class DialogManager : MonoBehaviour {
         DisplayNextPhrase();
     }
 
-    // функция для кнопки продолжения (стрелочки)  диалогах
+    /// функция для кнопки продолжения (стрелочки) в диалогах
     public void DisplayNextPhrase()
     {
         if (dialogs.Count == 0)
@@ -42,34 +43,15 @@ public class DialogManager : MonoBehaviour {
         StartCoroutine(TypeSentence(dialog));
     }
 
-    // иллюзия печатания текста в реалтайме
+    /// обновление текста на жкране
     IEnumerator TypeSentence(Dialogs dialog)
     {
         nameText_Box.text = dialog.npc_name;
         dialogText_Box.text = dialog.phrases;
         yield return null;
-        /*
-        nameText_Box.text = "";
-        dialogText_Box.text = "";
-      /*  if (Input.GetKeyDown(KeyCode.Space))
-        {
-            nameText_Box.text = dialog.npc_name;
-            dialogText_Box.text = dialog.phrases;
-            yield return null;
-        }*//*
-        foreach (char letter in dialog.npc_name.ToCharArray())
-        {
-            nameText_Box.text += letter;
-            yield return null;
-        }
-        foreach (char letter in dialog.phrases.ToCharArray())
-        {
-            dialogText_Box.text += letter;
-            yield return null;
-        }*/
     }
 
-    // завершить диалог
+    /// завершение диалога
     void EndDialog()
     {
         animator.SetBool("IsDialogOpen", false);
