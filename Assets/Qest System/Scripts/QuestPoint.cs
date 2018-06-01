@@ -7,6 +7,7 @@ public class QuestPoint : MonoBehaviour
 {
     public bool IsComplete { get; private set; }
     public QuestInfo Quest { get; set; }
+    public string QuestName;
 
     [SerializeField] private QuestActivators.Activators activator;
     [Header("Сообщение уведомления при выполнении")]

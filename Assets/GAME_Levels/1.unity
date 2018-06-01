@@ -733,6 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b886a90e97706d48956100fa079dac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  QuestName: "\u041A\u0443\u0439. \u043F\u043E\u043A\u0430 \u0433\u043E\u0440\u044F\u0447\u043E"
   activator: 0
   notification: "\u0416\u0435\u043B\u0435\u0437\u043E \u0434\u043E\u0431\u044B\u0442\u043E,
     \u043D\u043E \u043A\u0438\u0440\u043A\u0430 \u0441\u043B\u043E\u043C\u0430\u043B\u0430\u0441\u044C"
@@ -5894,6 +5895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b886a90e97706d48956100fa079dac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  QuestName: 
   activator: 0
   notification: 
   TaskNotification: 
@@ -8105,6 +8107,46 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1659067963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1659067965}
+  - component: {fileID: 1659067964}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1659067964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1659067963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de73751af13c39b45bf29c5d9c533c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1659067965
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1659067963}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.619324, y: -2.9981825, z: -9.625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1687038609
 GameObject:
   m_ObjectHideFlags: 0
@@ -9144,84 +9186,6 @@ Transform:
   m_Father: {fileID: 1687038619}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1848091738
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1848091740}
-  - component: {fileID: 1848091739}
-  - component: {fileID: 1848091741}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!61 &1848091739
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1848091738}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5, y: 10}
-  m_EdgeRadius: 0
---- !u!4 &1848091740
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1848091738}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.2, y: -11.3, z: -10.026194}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1848091741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1848091738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139d23dadb99533418e59946e49a9baa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog:
-  - npc_name: "\u0444\u0438\u043F"
-    phrases: "\u0443\u0430\u0443\u044B\u0443\u0430"
-  Quest:
-    Name: "\u041A\u0443\u0439 \u043F\u043E\u043A\u0430 \u0433\u043E\u0440\u044F\u0447\u043E"
-    ShortDescription: "\u0414\u043E\u0431\u0443\u0434\u044C \u0436\u0435\u043B\u0435\u0437\u043E
-      \u043A\u0443\u0437\u043D\u0435\u0446\u0443"
-    FullDescription: 
-    IsComplete: 0
-    Points:
-    - {fileID: 221802540}
-  QuestActivator: 0
 --- !u!1 &1861981002
 GameObject:
   m_ObjectHideFlags: 0

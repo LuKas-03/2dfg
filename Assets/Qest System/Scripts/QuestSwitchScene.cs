@@ -22,7 +22,7 @@ public class QuestSwitchScene : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
-        var questManager = GetComponent<QuestManager>();
+        var questManager = GetComponent<StartQuestPoint>();
         if (other.CompareTag("Character") && (!isBlockedByQuest || questManager.Quest.IsComplete) && QuestActivators.Check(activator))
         {
                 SceneManager.LoadScene(nextLevel);

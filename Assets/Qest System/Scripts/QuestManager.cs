@@ -1,79 +1,40 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-/// <summary>
-/// Основной класс квестовой системы
-/// Отвечает за выдачу и завершение квеста
-/// </summary>
 public class QuestManager : MonoBehaviour {
-    public Dialogs[] dialog;
-    public QuestInfo Quest;
+    private Dictionary<string, QuestInfo> playerQuests;
+    private QuestPoint[] sceneQuests;
 
-    [SerializeField]
-    [Header("Условие активации")]
-    public QuestActivators.Activators QuestActivator;
+    void Start () {
+        playerQuests = PlayerQuests.CurrentQests;
+        sceneQuests = FindObjectsOfType<QuestPoint>();
 
-    private bool isDialogOpen = false;
-
-    void OnTriggerStay2D(Collider2D other)    {
-        if ((other.CompareTag("Character")) && QuestActivators.Check(QuestActivator))
+        foreach (var i in sceneQuests)
         {
-            PlayerQuests character = other.gameObject.GetComponent<PlayerQuests>();
-
-            // если точка уже пройдена (квест уже выполнен ранее)
-            if (Quest.IsComplete || character.CompletedQuests.ContainsKey(Quest.Name))
+            if (playerQuests.ContainsKey(i.QuestName))
             {
-                return;
+                i.Quest = playerQuests[i.QuestName];
             }
+        }
+    }
 
-            isDialogOpen = true;
-            // если квест ещё не выполнен
-            if (character.CurrentQests.ContainsKey(Quest.Name))
+    public void PointsSetting(string questName)
+    {
+        if (playerQuests.ContainsKey(questName))
+        {
+            foreach (var i in sceneQuests)
             {
-                if (!TryCompleteQuest(character))
+                if (i.QuestName != questName)
                 {
-                    FindObjectOfType<QuestNoticeManager>().ShowNotice(
-                        new QuestNotice(Quest.Name, Quest.ShortDescription));
+                    continue;
                 }
-            }
-            else
-            {
-                GiveQuest(other);
-            }
-        }
-    }
-
-    private bool TryCompleteQuest(PlayerQuests character)
-    {
-        if (Quest.TryСomplete())
-        {
-            // если квест выполнен, происходит его "сдача" (завершение)
-            character.CompletedQuests[Quest.Name] = Quest;
-            character.CurrentQests.Remove(Quest.Name);
-
-            FindObjectOfType<QuestNoticeManager>().ShowNotice(new QuestNotice(Quest.Name, "Квест завершён!"));
-            return true;
-        }
-        return false;
-    }
-
-    private void GiveQuest(Collider2D other)
-    {
-        FindObjectOfType<DialogManager>().StartDialog(dialog);
-        CharacterAnimationController.anim.SetBool("StopMovement", true);
-
-            other.GetComponent<PlayerQuests>().CurrentQests.Add(Quest.Name, Quest);
-
-            foreach (var trigger in Quest.Points)
-            {
-                BoxCollider2D collider = trigger.gameObject.GetComponent<BoxCollider2D>();
+                var collider = i.gameObject.GetComponent<BoxCollider2D>();
                 if (collider != null)
                 {
                     collider.enabled = true;
                 }
-                trigger.Quest = Quest;
+                i.Quest = playerQuests[i.QuestName];
             }
-            FindObjectOfType<QuestNoticeManager>().ShowNotice(
-                new QuestNotice(Quest.Name, "Получен новый квест: " + Quest.ShortDescription)
-                );
         }
     }
+}
